@@ -1,12 +1,17 @@
 package com.example.pokmonpictorialbook.di
 
 import android.content.Context
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.room.Room
 import com.example.pokmonpictorialbook.data.api.PokemonApiService
 import com.example.pokmonpictorialbook.data.database.PokemonDatabase
 import com.example.pokmonpictorialbook.data.common.PokemonMapper
 import com.example.pokmonpictorialbook.data.source.LocalImageDataSource
 import com.example.pokmonpictorialbook.data.source.RemoteImageDataSource
+import com.example.pokmonpictorialbook.features.ui.detail.viewmodel.PokemonDetailViewModel
+import com.example.pokmonpictorialbook.features.ui.list.viewmodel.PokemonListViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -36,6 +41,30 @@ object DataModule {
 
     fun provideRemoteImageDataSource(context: Context): RemoteImageDataSource {
         return RemoteImageDataSource()
+    }
+
+    fun providePokemonListViewModel(): ViewModelProvider.Factory {
+        return object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+                return PokemonListViewModel(
+                    AppContainer.fetchPokemonListFromDataBaseUseCase,
+                    AppContainer.fetchAndInsertPokemonListUseCase
+                ) as T
+            }
+        }
+    }
+
+    fun providePokemonDetailViewModel(pokemonName: String): ViewModelProvider.Factory {
+        return object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+                return PokemonDetailViewModel(
+                    AppContainer.fetchAndInsertPokemonDetailUseCase,
+                    pokemonName
+                ) as T
+            }
+        }
     }
 
     fun providePokemonMapper(context: Context): PokemonMapper {

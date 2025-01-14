@@ -7,15 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.pokmonpictorialbook.di.AppContainer.fetchAndInsertPokemonDetailUseCase
-import com.example.pokmonpictorialbook.di.AppContainer.fetchAndInsertPokemonListUseCase
-import com.example.pokmonpictorialbook.di.AppContainer.fetchPokemonListFromDataBaseUseCase
+import com.example.pokmonpictorialbook.di.DataModule.providePokemonDetailViewModel
+import com.example.pokmonpictorialbook.di.DataModule.providePokemonListViewModel
 import com.example.pokmonpictorialbook.features.ui.detail.PokemonDetailScreen
 import com.example.pokmonpictorialbook.features.ui.detail.viewmodel.PokemonDetailViewModel
-import com.example.pokmonpictorialbook.features.ui.detail.viewmodel.PokemonDetailViewModelFactory
 import com.example.pokmonpictorialbook.features.ui.list.PokemonListScreen
 import com.example.pokmonpictorialbook.features.ui.list.viewmodel.PokemonListViewModel
-import com.example.pokmonpictorialbook.features.ui.list.viewmodel.PokemonListViewModelFactory
 
 sealed class AppDestinations(val route: String) {
     data object PokemonList : AppDestinations("pokemon_list")
@@ -41,10 +38,7 @@ fun AppNavGraph(
         ) { backStackEntry ->
             val viewModel: PokemonListViewModel = viewModel(
                 key = "PokemonListViewModel",
-                factory = PokemonListViewModelFactory(
-                    fetchPokemonListFromDataBaseUseCase = fetchPokemonListFromDataBaseUseCase,
-                    fetchAndInsertPokemonListUseCase = fetchAndInsertPokemonListUseCase
-                )
+                factory = providePokemonListViewModel()
             )
             PokemonListScreen(
                 onItemClick = { name: String ->
@@ -68,10 +62,7 @@ fun AppNavGraph(
             val pokemonName: String = backStackEntry.arguments?.getString("pokemonName").toString()
             val viewModel: PokemonDetailViewModel = viewModel(
                 key = "PokemonDetailViewModel",
-                factory = PokemonDetailViewModelFactory(
-                    fetchAndInsertPokemonDetailUseCase = fetchAndInsertPokemonDetailUseCase,
-                    pokemonName = pokemonName
-                )
+                factory = providePokemonDetailViewModel(pokemonName = pokemonName)
             )
             PokemonDetailScreen(
                 viewModel = viewModel
