@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="type_normal">ノーマル</string>
+    <string name="type_fire">ほのお</string>
+    <string name="type_water">みず</string>
+    <string name="type_electric">でんき</string>
+    <string name="type_grass">くさ</string>
+    <string name="type_ice">こおり</string>
+    <string name="type_fighting">かくとう</string>
+    <string name="type_poison">どく</string>
+    <string name="type_ground">じめん</string>
+    <string name="type_flying">ひこう</string>
+    <string name="type_psychic">エスパー</string>
+    <string name="type_bug">むし</string>
+    <string name="type_rock">いわ</string>
+    <string name="type_ghost">ゴースト</string>
+    <string name="type_dragon">ドラゴン</string>
+    <string name="type_dark">あく</string>
+    <string name="type_steel">はがね</string>
+    <string name="type_fairy">フェアリー</string>
+    <string name="unknown">不明</string>
+    <string name="weight">おもさ</string>
+    <string name="height">たかさ</string>
+    <string name="no_description">説明文がありません。</string>
+    <string name="type">タイプ</string>
+    <string name="loading_error">読み込みエラー</string>
+    <string name="loading_error_message">申し訳ありませんが、ページを読み込めませんでした。\n再実行するか、もう一度お試しください。</string>
+</resources>
