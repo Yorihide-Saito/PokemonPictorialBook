@@ -62,7 +62,7 @@ fun PokemonListScreen(
             }
         }
         is PokemonListUiState.Error -> {
-            ErrorScreen({ })
+            ErrorScreen({ }) // TODO エラー時の再実行処理を作成する。
         }
     }
 }

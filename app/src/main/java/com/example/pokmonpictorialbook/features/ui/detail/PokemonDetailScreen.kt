@@ -43,7 +43,7 @@ fun PokemonDetailScreen(
             PokemonDetailBody(pokemonDetail)
         }
         is PokemonDetailUiState.Error -> {
-            ErrorScreen({ })
+            ErrorScreen({ }) // TODO エラー時の再実行処理を作成する。
         }
     }
 }
@@ -56,7 +56,6 @@ fun PokemonDetailBody(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFF0F4F8)) // Theme に変える予定
             .padding(16.dp)
     ) {
         Text(
@@ -146,17 +145,22 @@ fun DetailCard(
 ) {
     Column(
         modifier = modifier
-            .background(Color.White, shape = RoundedCornerShape(8.dp))
+            .background(
+                color = MaterialTheme.colorScheme.secondary,
+                shape = RoundedCornerShape(8.dp)
+            )
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = value,
+            color = MaterialTheme.colorScheme.onSecondary,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(bottom = 4.dp)
         )
         Text(
             text = title,
+            color = MaterialTheme.colorScheme.onSecondary,
             style = MaterialTheme.typography.titleSmall
         )
     }
