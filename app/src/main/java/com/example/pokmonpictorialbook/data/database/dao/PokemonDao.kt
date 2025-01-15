@@ -14,19 +14,19 @@ import com.example.pokmonpictorialbook.data.database.entitiy.PokemonNameEntity
 @Dao
 interface PokemonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPokemonList(pokemonList: List<PokemonEntity>)
+    suspend fun insertPokemonList(pokemonEntityList: List<PokemonEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPokemonDetail(pokemon: PokemonDetailEntity)
+    suspend fun insertPokemonDetail(pokemonDetailEntity: PokemonDetailEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPokemonName(pokemonName: PokemonNameEntity)
+    suspend fun insertPokemonName(pokemonNameEntity: PokemonNameEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPokemonFlavorText(pokemonFlavorText: PokemonFlavorTextEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPokemonGenera(pokemonGenera: PokemonGeneraEntity)
+    suspend fun insertPokemonGenera(pokemonGeneraEntity: PokemonGeneraEntity)
 
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM pokemon WHERE id = :id LIMIT 1")

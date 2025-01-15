@@ -30,7 +30,7 @@ class PokemonRepositoryImpl(
 
     override suspend fun fetchTotalNumberOfPokemonFromApi(limit: Int, offset: Int): List<PokemonEntity> {
         return withContext(Dispatchers.IO) {
-            val response: PokemonListResponse =  apiService.fetchPokemonList(limit, offset)
+            val response: PokemonListResponse = apiService.fetchPokemonList(limit, offset)
             pokemonMapper.mapPokemonListResponseToEntity(response)
         }
     }
