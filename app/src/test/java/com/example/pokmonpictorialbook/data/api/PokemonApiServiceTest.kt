@@ -2,6 +2,7 @@ package com.example.pokmonpictorialbook.data.api
 
 import com.example.pokmonpictorialbook.data.api.response.PokemonListResponse
 import com.example.pokmonpictorialbook.data.api.response.PokemonResponse
+import com.example.pokmonpictorialbook.data.api.response.PokemonSpeciesResponse
 import com.example.pokmonpictorialbook.data.api.response.TypeDetailResponse
 import com.example.pokmonpictorialbook.data.api.response.TypeSlotResponse
 import junit.framework.TestCase.assertEquals
@@ -173,6 +174,115 @@ class PokemonApiServiceTest {
 
     @Test
     fun fetchPokemonSpecies_PokemonNameIsDitto_ReturnDittoPokemonSpeciesResponse() {
-        // TODO: fetchPokemonSpecies
+        runTest {
+            val mockResponse: MockResponse = MockResponse()
+                .setBody(
+                    """
+                    {
+                        "id": 681,
+                        "genera": [
+                            {
+                                "genus": "Royal Sword Pokémon",
+                                "language": {
+                                    "name": "en",
+                                    "url": "https://pokeapi.co/api/v2/language/9/"
+                                }
+                            },
+                            {
+                                "genus": "おうけんポケモン",
+                                "language": {
+                                    "name": "ja",
+                                    "url": "https://pokeapi.co/api/v2/language/11/"
+                                }
+                            }
+                        ],
+                        "flavor_text_entries": [
+                            {
+                                "flavor_text": "Apparently, it can detect the innate qualities\nof leadership. According to legend, whoever it\nrecognizes is destined to become king.",
+                                "language": {
+                                    "name": "en",
+                                    "url": "https://pokeapi.co/api/v2/language/9/"
+                                }
+                            },
+                            {
+                                "flavor_text": "王の　素質を　持つ　人間を\n見抜くらしい。認められた　人は\nやがて　王になると　言われている。",
+                                "language": {
+                                    "name": "ja",
+                                    "url": "https://pokeapi.co/api/v2/language/11/"
+                                }
+                            }
+                        ],
+                        "names": [
+                            {
+                                "language": {
+                                    "name": "en",
+                                    "url": "https://pokeapi.co/api/v2/language/9/"
+                                },
+                                "name": "Aegislash"
+                            },
+                            {
+                                "language": {
+                                    "name": "ja",
+                                    "url": "https://pokeapi.co/api/v2/language/11/"
+                                },
+                                "name": "ギルガルド"
+                            }
+                        ]
+                    }
+                    """.trimIndent()
+                )
+                .setResponseCode(200)
+            mockWebServer.enqueue(mockResponse)
+
+            val response: Response<PokemonSpeciesResponse> = apiService.fetchPokemonSpecies("aegislash")
+
+            assertEquals(true, response.isSuccessful)
+            response.body().let {
+                assertEquals(681, it?.id)
+                // Genera
+                it?.genera?.get(0).let { genera0 ->
+                    assertEquals("Royal Sword Pokémon", genera0?.genus)
+                    assertEquals("en", genera0?.language?.languageCode)
+                    assertEquals("https://pokeapi.co/api/v2/language/9/", genera0?.language?.url)
+                }
+                it?.genera?.get(1).let { genera1 ->
+                    assertEquals("おうけんポケモン", genera1?.genus)
+                    assertEquals("ja", genera1?.language?.languageCode)
+                    assertEquals("https://pokeapi.co/api/v2/language/11/", genera1?.language?.url)
+                }
+                // FlavorTextEntries
+                it?.flavorTextEntries?.get(0).let { flavorTextEntries0 ->
+                    assertEquals("Apparently, it can detect the innate qualities\nof leadership. According to legend, whoever it\nrecognizes is destined to become king.", flavorTextEntries0?.flavorText)
+                    assertEquals("en", flavorTextEntries0?.language?.languageCode)
+                }
+                it?.flavorTextEntries?.get(1).let { flavorTextEntries1 ->
+                    assertEquals("王の　素質を　持つ　人間を\n見抜くらしい。認められた　人は\nやがて　王になると　言われている。", flavorTextEntries1?.flavorText)
+                    assertEquals("ja", flavorTextEntries1?.language?.languageCode)
+                }
+                // Name
+                it?.names?.get(0).let { name0 ->
+                    assertEquals("Aegislash", name0?.name)
+                    assertEquals("en", name0?.language?.languageCode)
+                }
+                it?.names?.get(1).let { name1 ->
+                    assertEquals("ギルガルド", name1?.name)
+                    assertEquals("ja", name1?.language?.languageCode)
+                }
+            }
+        }
+    }
+
+    @Test
+    fun fetchPokemonSpecies_ErrorResponse() {
+        runTest{
+            val mockResponse: MockResponse = MockResponse()
+                .setResponseCode(404)
+            mockWebServer.enqueue(mockResponse)
+
+            val response: Response<PokemonSpeciesResponse> = apiService.fetchPokemonSpecies("aegislash")
+
+            assertEquals(false, response.isSuccessful)
+            assertEquals(404, response.code())
+        }
     }
 }
