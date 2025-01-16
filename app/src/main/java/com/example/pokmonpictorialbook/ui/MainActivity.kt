@@ -1,4 +1,4 @@
-package com.example.pokmonpictorialbook.features
+package com.example.pokmonpictorialbook.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.pokmonpictorialbook.features.navigation.AppNavGraph
-import com.example.pokmonpictorialbook.features.theme.PokémonPictorialBookTheme
+import com.example.pokmonpictorialbook.ui.navigation.AppNavGraph
+import com.example.pokmonpictorialbook.ui.theme.PokémonPictorialBookTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

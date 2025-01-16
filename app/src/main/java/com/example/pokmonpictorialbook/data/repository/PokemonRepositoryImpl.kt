@@ -19,6 +19,10 @@ import com.example.pokmonpictorialbook.data.source.LocalImageDataSource
 import com.example.pokmonpictorialbook.data.source.RemoteImageDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
+import retrofit2.Response
+import java.io.IOException
+import kotlin.jvm.Throws
 
 class PokemonRepositoryImpl(
     private val apiService: PokemonApiService,
@@ -28,24 +32,48 @@ class PokemonRepositoryImpl(
     private val pokemonMapper: PokemonMapper = PokemonMapper()
 ) : PokemonRepository {
 
+    @Throws(IOException::class, RuntimeException::class)
     override suspend fun fetchTotalNumberOfPokemonFromApi(limit: Int, offset: Int): List<PokemonEntity> {
         return withContext(Dispatchers.IO) {
-            val response: PokemonListResponse = apiService.fetchPokemonList(limit, offset)
-            pokemonMapper.mapPokemonListResponseToEntity(response)
+            val response: Response<PokemonListResponse> = apiService.fetchPokemonList(limit, offset)
+            if (response.isSuccessful) {
+                val pokemonListResponse: PokemonListResponse = response.body() ?: throw IOException("Response body is null")
+                pokemonMapper.mapPokemonListResponseToEntity(pokemonListResponse)
+            } else {
+                val errorCode: Int = response.code()
+                val errorMessage: String = response.errorBody()?.string() ?: "Unkown error"
+                throw IOException("HTTP $errorCode: $errorMessage")
+            }
         }
     }
 
+    @Throws(IOException::class, RuntimeException::class)
     override suspend fun fetchPokemonFromApi(pokemonName: String): PokemonDetailEntity {
         return withContext(Dispatchers.IO) {
-            val response: PokemonResponse = apiService.fetchPokemon(pokemonName)
-            pokemonMapper.mapPokemonResponseToPokemonDetailEntity(response)
+            val response: Response<PokemonResponse> = apiService.fetchPokemon(pokemonName)
+            if (response.isSuccessful) {
+                val pokemonResponse: PokemonResponse = response.body() ?: throw IOException("Response body is null")
+                pokemonMapper.mapPokemonResponseToPokemonDetailEntity(pokemonResponse)
+            } else {
+                val errorCode: Int = response.code()
+                val errorMessage: String = response.errorBody()?.string() ?: "Unkown error"
+                throw IOException("HTTP $errorCode: $errorMessage")
+            }
         }
     }
 
+    @Throws(IOException::class, RuntimeException::class)
     override suspend fun fetchPokemonSpeciesFromApi(pokemonName: String): PokemonSpeciesEntity {
         return withContext(Dispatchers.IO) {
-            val response: PokemonSpeciesResponse = apiService.fetchPokemonSpecies(pokemonName)
-            pokemonMapper.mapPokemonSpeciesResponseToEntity(response)
+            val response: Response<PokemonSpeciesResponse> = apiService.fetchPokemonSpecies(pokemonName)
+            if (response.isSuccessful) {
+                val pokemonSpeciesResponse: PokemonSpeciesResponse = response.body() ?: throw IOException("Response body is null")
+                pokemonMapper.mapPokemonSpeciesResponseToEntity(pokemonSpeciesResponse)
+            } else {
+                val errorCode: Int = response.code()
+                val errorMessage: String = response.errorBody()?.string() ?: "Unkown error"
+                throw IOException("HTTP $errorCode: $errorMessage")
+            }
         }
     }
 

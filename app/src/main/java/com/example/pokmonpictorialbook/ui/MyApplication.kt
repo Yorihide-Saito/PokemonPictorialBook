@@ -1,4 +1,4 @@
-package com.example.pokmonpictorialbook.features
+package com.example.pokmonpictorialbook.ui
 
 import android.app.Application
 import com.example.pokmonpictorialbook.di.AppContainer

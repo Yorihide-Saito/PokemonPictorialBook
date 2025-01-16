@@ -1,4 +1,4 @@
-package com.example.pokmonpictorialbook.features.theme
+package com.example.pokmonpictorialbook.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

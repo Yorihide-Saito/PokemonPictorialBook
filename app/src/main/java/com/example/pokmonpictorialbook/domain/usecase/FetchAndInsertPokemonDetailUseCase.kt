@@ -5,7 +5,7 @@ import com.example.pokmonpictorialbook.domain.usecase.common.FetchPokemonDetailF
 import com.example.pokmonpictorialbook.domain.usecase.common.FetchPokemonDetailUseCase
 import com.example.pokmonpictorialbook.domain.usecase.common.InsertPokemonDetailUseCase
 import com.example.pokmonpictorialbook.domain.usecase.common.image.DownloadImageUseCase
-import com.example.pokmonpictorialbook.features.ui.model.PokemonDetail
+import com.example.pokmonpictorialbook.ui.feature.model.PokemonDetail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

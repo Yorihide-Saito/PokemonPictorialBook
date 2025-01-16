@@ -4,14 +4,13 @@ import com.example.pokmonpictorialbook.data.database.entitiy.PokemonEntity
 import com.example.pokmonpictorialbook.domain.usecase.common.FetchPokemonListFromDataBaseUseCase
 import com.example.pokmonpictorialbook.domain.usecase.common.FetchPokemonListUseCase
 import com.example.pokmonpictorialbook.domain.usecase.common.InsertPokemonListUseCase
-import com.example.pokmonpictorialbook.features.ui.model.PokemonListData
+import com.example.pokmonpictorialbook.ui.feature.model.PokemonListData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.toList
 
 class FetchAndInsertPokemonListUseCase(
     private val fetchPokemonListUseCase: FetchPokemonListUseCase,

@@ -1,10 +1,9 @@
-package com.example.pokmonpictorialbook.features.ui.detail.viewmodel
+package com.example.pokmonpictorialbook.ui.feature.detail.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokmonpictorialbook.domain.usecase.FetchAndInsertPokemonDetailUseCase
-import com.example.pokmonpictorialbook.domain.usecase.common.FetchPokemonDetailUseCase
-import com.example.pokmonpictorialbook.features.ui.model.PokemonDetail
+import com.example.pokmonpictorialbook.ui.feature.model.PokemonDetail
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

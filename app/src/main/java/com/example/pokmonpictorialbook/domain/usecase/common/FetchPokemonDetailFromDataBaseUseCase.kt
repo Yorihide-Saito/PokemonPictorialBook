@@ -7,7 +7,7 @@ import com.example.pokmonpictorialbook.data.database.entitiy.PokemonGeneraEntity
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonNameEntity
 import com.example.pokmonpictorialbook.data.repository.PokemonRepository
 import com.example.pokmonpictorialbook.domain.usecase.common.image.FetchImageUseCase
-import com.example.pokmonpictorialbook.features.ui.model.PokemonDetail
+import com.example.pokmonpictorialbook.ui.feature.model.PokemonDetail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

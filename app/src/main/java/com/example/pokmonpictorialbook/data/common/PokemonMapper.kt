@@ -34,8 +34,8 @@ class PokemonMapper {
     }
 
     // 文字列の末端の数字を取得する。
-    // もう少しいい感じの正規表現使用できそうだが動くから一旦無視
-    fun extractListNumberFromUrl(url: String): String? {
+    // TODO: もう少しいい感じの正規表現使用できそうだが動くから一旦無視
+    private fun extractListNumberFromUrl(url: String): String? {
         val regex = """(\d+)/?$""".toRegex()
         val matchResult = regex.find(url)
         return matchResult?.groupValues?.get(1)

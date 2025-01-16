@@ -1,4 +1,4 @@
-package com.example.pokmonpictorialbook.features.navigation
+package com.example.pokmonpictorialbook.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -7,12 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.pokmonpictorialbook.di.DataModule.providePokemonDetailViewModel
-import com.example.pokmonpictorialbook.di.DataModule.providePokemonListViewModel
-import com.example.pokmonpictorialbook.features.ui.detail.PokemonDetailScreen
-import com.example.pokmonpictorialbook.features.ui.detail.viewmodel.PokemonDetailViewModel
-import com.example.pokmonpictorialbook.features.ui.list.PokemonListScreen
-import com.example.pokmonpictorialbook.features.ui.list.viewmodel.PokemonListViewModel
+import com.example.pokmonpictorialbook.di.AppModule.providePokemonDetailViewModel
+import com.example.pokmonpictorialbook.di.AppModule.providePokemonListViewModel
+import com.example.pokmonpictorialbook.ui.feature.detail.PokemonDetailScreen
+import com.example.pokmonpictorialbook.ui.feature.detail.viewmodel.PokemonDetailViewModel
+import com.example.pokmonpictorialbook.ui.feature.list.PokemonListScreen
+import com.example.pokmonpictorialbook.ui.feature.list.viewmodel.PokemonListViewModel
 
 sealed class AppDestinations(val route: String) {
     data object PokemonList : AppDestinations("pokemon_list")

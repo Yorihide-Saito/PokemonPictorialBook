@@ -1,4 +1,4 @@
-package com.example.pokmonpictorialbook.features.ui.common
+package com.example.pokmonpictorialbook.ui.feature.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

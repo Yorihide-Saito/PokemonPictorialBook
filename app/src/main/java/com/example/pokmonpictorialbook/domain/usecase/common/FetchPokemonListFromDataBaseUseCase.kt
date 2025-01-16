@@ -4,8 +4,8 @@ import android.graphics.Bitmap
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonDetailEntity
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonEntity
 import com.example.pokmonpictorialbook.data.repository.PokemonRepository
-import com.example.pokmonpictorialbook.features.ui.model.Pokemon
-import com.example.pokmonpictorialbook.features.ui.model.PokemonListData
+import com.example.pokmonpictorialbook.ui.feature.model.Pokemon
+import com.example.pokmonpictorialbook.ui.feature.model.PokemonListData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

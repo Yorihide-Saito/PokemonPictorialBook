@@ -14,6 +14,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -74,13 +75,38 @@ class PokemonApiServiceTest {
                 .setResponseCode(200)
             mockWebServer.enqueue(mockResponse)
 
-            val response: PokemonListResponse = apiService.fetchPokemonList()
+            val response: Response<PokemonListResponse> = apiService.fetchPokemonList()
 
-            assertEquals(1302, response.count)
-            assertEquals("bulbasaur", response.results[0].name)
-            assertEquals("https://pokeapi.co/api/v2/pokemon/1/", response.results[0].url)
-            assertEquals("venusaur", response.results[2].name)
-            assertEquals("https://pokeapi.co/api/v2/pokemon/3/", response.results[2].url)
+            assertEquals(true, response.isSuccessful)
+            response.body().let{
+                assertEquals(1302, it?.count)
+                it?.results?.get(0).let { it0 ->
+                    assertEquals("bulbasaur", it0?.name)
+                    assertEquals("https://pokeapi.co/api/v2/pokemon/1/", it0?.url)
+                }
+                it?.results?.get(1).let { it1 ->
+                    assertEquals("ivysaur", it1?.name)
+                    assertEquals("https://pokeapi.co/api/v2/pokemon/2/", it1?.url)
+                }
+                it?.results?.get(2).let { it2 ->
+                    assertEquals("venusaur", it2?.name)
+                    assertEquals("https://pokeapi.co/api/v2/pokemon/3/", it2?.url)
+                }
+            }
+        }
+    }
+
+    @Test
+    fun fetchPokemonList_ErrorResponse() {
+        runTest{
+            val mockResponse: MockResponse = MockResponse()
+                .setResponseCode(404)
+            mockWebServer.enqueue(mockResponse)
+
+            val response: Response<PokemonListResponse> = apiService.fetchPokemonList()
+
+            assertEquals(false, response.isSuccessful)
+            assertEquals(404, response.code())
         }
     }
 
@@ -116,15 +142,32 @@ class PokemonApiServiceTest {
 
             mockWebServer.enqueue(mockResponse)
 
-            val response: PokemonResponse = apiService.fetchPokemon("ditto")
+            val response: Response<PokemonResponse> = apiService.fetchPokemon("ditto")
 
-            assertEquals(132, response.id)
-            assertEquals("ditto", response.name)
-            assertEquals(3, response.height)
-            assertEquals(40, response.weight)
-            assertEquals(listOf(TypeSlotResponse(1, TypeDetailResponse("normal", "https://pokeapi.co/api/v2/type/1/"))), response.types)
-            assertEquals("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png", response.sprites.backDefault)
-            assertEquals("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/front/132.png", response.sprites.frontDefault)
+            assertEquals(true, response.isSuccessful)
+            response.body().let {
+                assertEquals(132, it?.id)
+                assertEquals("ditto", it?.name)
+                assertEquals(3, it?.height)
+                assertEquals(40, it?.weight)
+                assertEquals(listOf(TypeSlotResponse(1, TypeDetailResponse("normal", "https://pokeapi.co/api/v2/type/1/"))), it?.types)
+                assertEquals("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png", it?.sprites?.backDefault)
+                assertEquals("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/front/132.png", it?.sprites?.frontDefault)
+            }
+        }
+    }
+
+    @Test
+    fun fetchPokemon_ErrorResponse() {
+        runTest{
+            val mockResponse: MockResponse = MockResponse()
+                .setResponseCode(404)
+            mockWebServer.enqueue(mockResponse)
+
+            val response: Response<PokemonResponse> = apiService.fetchPokemon("ditto")
+
+            assertEquals(false, response.isSuccessful)
+            assertEquals(404, response.code())
         }
     }
 

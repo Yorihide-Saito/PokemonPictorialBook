@@ -1,4 +1,4 @@
-package com.example.pokmonpictorialbook.features.ui.detail
+package com.example.pokmonpictorialbook.ui.feature.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,16 +17,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.pokmonpictorialbook.R
-import com.example.pokmonpictorialbook.features.ui.common.ErrorScreen
-import com.example.pokmonpictorialbook.features.ui.common.LoadingScreen
-import com.example.pokmonpictorialbook.features.ui.detail.viewmodel.PokemonDetailUiState
-import com.example.pokmonpictorialbook.features.ui.detail.viewmodel.PokemonDetailViewModel
-import com.example.pokmonpictorialbook.features.ui.model.PokemonDetail
+import com.example.pokmonpictorialbook.ui.feature.common.ErrorScreen
+import com.example.pokmonpictorialbook.ui.feature.common.LoadingScreen
+import com.example.pokmonpictorialbook.ui.feature.detail.viewmodel.PokemonDetailUiState
+import com.example.pokmonpictorialbook.ui.feature.detail.viewmodel.PokemonDetailViewModel
+import com.example.pokmonpictorialbook.ui.feature.model.PokemonDetail
 
 @Composable
 fun PokemonDetailScreen(

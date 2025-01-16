@@ -1,4 +1,4 @@
-package com.example.pokmonpictorialbook.features.ui.model
+package com.example.pokmonpictorialbook.ui.feature.model
 
 import android.graphics.Bitmap
 

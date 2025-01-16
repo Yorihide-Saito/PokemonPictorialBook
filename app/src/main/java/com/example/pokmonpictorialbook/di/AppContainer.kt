@@ -2,10 +2,10 @@ package com.example.pokmonpictorialbook.di
 
 import android.content.Context
 import com.example.pokmonpictorialbook.data.repository.PokemonRepositoryImpl
-import com.example.pokmonpictorialbook.di.DataModule.provideLocalImageDataSource
-import com.example.pokmonpictorialbook.di.DataModule.providePokemonDatabase
-import com.example.pokmonpictorialbook.di.DataModule.providePokemonApiService
-import com.example.pokmonpictorialbook.di.DataModule.provideRemoteImageDataSource
+import com.example.pokmonpictorialbook.di.AppModule.provideLocalImageDataSource
+import com.example.pokmonpictorialbook.di.AppModule.providePokemonDatabase
+import com.example.pokmonpictorialbook.di.AppModule.providePokemonApiService
+import com.example.pokmonpictorialbook.di.AppModule.provideRemoteImageDataSource
 import com.example.pokmonpictorialbook.domain.usecase.FetchAndInsertPokemonDetailUseCase
 import com.example.pokmonpictorialbook.domain.usecase.common.FetchPokemonDetailUseCase
 import com.example.pokmonpictorialbook.domain.usecase.FetchAndInsertPokemonListUseCase

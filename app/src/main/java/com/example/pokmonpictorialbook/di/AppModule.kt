@@ -10,12 +10,12 @@ import com.example.pokmonpictorialbook.data.database.PokemonDatabase
 import com.example.pokmonpictorialbook.data.common.PokemonMapper
 import com.example.pokmonpictorialbook.data.source.LocalImageDataSource
 import com.example.pokmonpictorialbook.data.source.RemoteImageDataSource
-import com.example.pokmonpictorialbook.features.ui.detail.viewmodel.PokemonDetailViewModel
-import com.example.pokmonpictorialbook.features.ui.list.viewmodel.PokemonListViewModel
+import com.example.pokmonpictorialbook.ui.feature.detail.viewmodel.PokemonDetailViewModel
+import com.example.pokmonpictorialbook.ui.feature.list.viewmodel.PokemonListViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object DataModule {
+object AppModule {
     private const val BASE_URL = "https://pokeapi.co/api/v2/"
 
     fun providePokemonApiService(): PokemonApiService {

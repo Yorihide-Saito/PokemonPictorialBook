@@ -1,4 +1,4 @@
-package com.example.pokmonpictorialbook.features.ui.list
+package com.example.pokmonpictorialbook.ui.feature.list
 
 import android.content.Context
 import androidx.compose.foundation.Image
@@ -26,12 +26,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pokmonpictorialbook.R
-import com.example.pokmonpictorialbook.features.ui.common.ErrorScreen
-import com.example.pokmonpictorialbook.features.ui.common.LoadingScreen
-import com.example.pokmonpictorialbook.features.ui.model.PokemonListData
-import com.example.pokmonpictorialbook.features.ui.list.viewmodel.PokemonListUiState
-import com.example.pokmonpictorialbook.features.ui.list.viewmodel.PokemonListViewModel
-import com.example.pokmonpictorialbook.features.ui.model.Pokemon
+import com.example.pokmonpictorialbook.ui.feature.common.ErrorScreen
+import com.example.pokmonpictorialbook.ui.feature.common.LoadingScreen
+import com.example.pokmonpictorialbook.ui.feature.model.PokemonListData
+import com.example.pokmonpictorialbook.ui.feature.list.viewmodel.PokemonListUiState
+import com.example.pokmonpictorialbook.ui.feature.list.viewmodel.PokemonListViewModel
+import com.example.pokmonpictorialbook.ui.feature.model.Pokemon
 
 @Composable
 fun PokemonListScreen(
