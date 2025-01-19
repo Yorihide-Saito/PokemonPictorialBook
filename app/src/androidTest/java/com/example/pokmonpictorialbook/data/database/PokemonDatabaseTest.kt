@@ -17,6 +17,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 
+/**
+ * PokemonDatabase の Test
+ * TODO: できれば Robolectric 導入して、Android Test をやめたい
+ */
+
 @RunWith(AndroidJUnit4::class)
 class PokemonDatabaseTest {
 

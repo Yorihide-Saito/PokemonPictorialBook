@@ -28,18 +28,3 @@ data class Language(
     @SerializedName("name") val languageCode: String,
     val url: String
 )
-
-//data class TypeSlotResponse(
-//    val slot: Int,
-//    val type: TypeDetailResponse
-//)
-//
-//data class TypeDetailResponse(
-//    val name: String,
-//    val url: String
-//)
-//
-//data class SpritesResponse(
-//    @SerializedName("back_default") val backDefault: String,
-//    @SerializedName("front_default") val frontDefault: String
-//)
