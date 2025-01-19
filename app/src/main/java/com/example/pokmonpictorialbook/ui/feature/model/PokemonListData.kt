@@ -31,7 +31,7 @@ data class PokemonDetail(
 )
 
 
-// TODO Type クラスは使うか迷い中
+// TODO: Type クラスは使うか迷い中
 data class Type(
     val type: String = "?????"
 )

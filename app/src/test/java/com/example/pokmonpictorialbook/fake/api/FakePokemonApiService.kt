@@ -193,7 +193,7 @@ class FakePokemonApiService : PokemonApiService {
     )
 
     fun setReturnError(value: Boolean) {
-        shouldReturnError = true
+        shouldReturnError = value
     }
 
     override suspend fun fetchPokemonList(limit: Int, offset: Int): Response<PokemonListResponse> {
@@ -244,5 +244,4 @@ class FakePokemonApiService : PokemonApiService {
             )
         }
     }
-
 }
