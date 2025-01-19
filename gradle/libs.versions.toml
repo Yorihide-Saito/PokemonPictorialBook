@@ -18,7 +18,6 @@ loggingInterceptor = "4.12.0"
 room = "2.6.1"
 navigationCompose = "2.8.5"
 lottieCompose = "6.6.2"
-coilNetworkOkhttp = "3.0.4"
 devtools-ksp = "2.1.0-1.0.29"
 
 [libraries]
@@ -50,7 +49,6 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottieCompose" }
-coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coilNetworkOkhttp" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

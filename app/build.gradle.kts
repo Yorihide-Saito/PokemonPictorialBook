@@ -67,7 +67,6 @@ dependencies {
 
     // Lottie
     implementation(libs.lottie.compose)
-    implementation(libs.coil.network.okhttp)
 
     testImplementation(libs.junit)
     testImplementation(libs.androidx.room.testing)
