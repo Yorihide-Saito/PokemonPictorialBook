@@ -3,6 +3,7 @@ package com.example.pokmonpictorialbook.data.repository
 import com.example.pokmonpictorialbook.data.common.PokemonMapper
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonDetailEntity
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonEntity
+import com.example.pokmonpictorialbook.data.database.entitiy.PokemonSpeciesEntity
 import com.example.pokmonpictorialbook.fake.api.FakePokemonApiService
 import com.example.pokmonpictorialbook.fake.database.FakePokemonDao
 import junit.framework.TestCase.assertEquals
@@ -24,7 +25,7 @@ class PokemonRepositoryImplTest {
     @Before
     fun setUp() {
         fakePokemonApiService = FakePokemonApiService()
-        fakePokemonDao = mock()
+        fakePokemonDao = mock() // TODO: Fakeに変更したいかも、、、
         repository = PokemonRepositoryImpl(
             apiService = fakePokemonApiService,
             pokemonDao = fakePokemonDao,
@@ -76,6 +77,50 @@ class PokemonRepositoryImplTest {
         runTest{
             fakePokemonApiService.setReturnError(true)
             repository.fetchPokemonFromApi("hoge")
+        }
+    }
+
+    // 妥協している。もう少し Assert 作成したら Coverage 増えそう。
+    // TODO: fake データをそのまま検証データとして使用している部分直すかも。
+    @Test
+    fun fetchPokemonSpeciesFromAPi_ResponseIsSuccessful_ReturnPokemonSpeciesEntity() {
+        runTest {
+            val pokemonName = "hoge"
+
+            val response: PokemonSpeciesEntity = repository.fetchPokemonSpeciesFromApi("hoge")
+
+            assertEquals(
+                fakePokemonApiService.fakePokemonSpeciesResponse[pokemonName]?.names?.get(0)?.name,
+                response.pokemonNameEntity[0].name
+            )
+            assertEquals(
+                fakePokemonApiService.fakePokemonSpeciesResponse[pokemonName]?.names?.get(0)?.language?.languageCode,
+                response.pokemonNameEntity[0].languageCode
+            )
+            assertEquals(
+                fakePokemonApiService.fakePokemonSpeciesResponse[pokemonName]?.flavorTextEntries?.get(0)?.flavorText,
+                response.pokemonFlavorTextEntity[0].flavorText
+            )
+            assertEquals(
+                fakePokemonApiService.fakePokemonSpeciesResponse[pokemonName]?.flavorTextEntries?.get(0)?.language?.languageCode,
+                response.pokemonFlavorTextEntity[0].languageCode
+            )
+            assertEquals(
+                fakePokemonApiService.fakePokemonSpeciesResponse[pokemonName]?.genera?.get(0)?.genus,
+                response.pokemonGeneraEntity[0].genera
+            )
+            assertEquals(
+                fakePokemonApiService.fakePokemonSpeciesResponse[pokemonName]?.genera?.get(0)?.language?.languageCode,
+                response.pokemonGeneraEntity[0].languageCode
+            )
+        }
+    }
+
+    @Test(expected = IOException::class)
+    fun fetchPokemonSpeciesFromApi_ResponseError_ThrowIOException() {
+        runTest{
+            fakePokemonApiService.setReturnError(true)
+            repository.fetchPokemonSpeciesFromApi("hoge")
         }
     }
 }

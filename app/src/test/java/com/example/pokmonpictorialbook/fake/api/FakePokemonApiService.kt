@@ -81,7 +81,7 @@ class FakePokemonApiService : PokemonApiService {
     )
 
     // PokemonSpeciesResponse 用の Fake クラス
-    val fakePokemonSlotResponse = mapOf(
+    val fakePokemonSpeciesResponse = mapOf(
         Pair(
             "hoge",
             PokemonSpeciesResponse(
@@ -240,7 +240,7 @@ class FakePokemonApiService : PokemonApiService {
             Response.error(500, "Error fetching data".toResponseBody(null))
         } else {
             Response.success(
-                fakePokemonSlotResponse[pokemonName]
+                fakePokemonSpeciesResponse[pokemonName]
             )
         }
     }
