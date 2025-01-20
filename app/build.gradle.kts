@@ -38,6 +38,12 @@ android {
     buildFeatures {
         compose = true
     }
+    // Robolectric のためのテストオプション
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -69,6 +75,8 @@ dependencies {
     implementation(libs.lottie.compose)
 
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.robolectric)
     testImplementation(libs.androidx.room.testing)
     testImplementation(libs.mockwebserver)
     testImplementation(libs.kotlinx.coroutines.test)

@@ -2,7 +2,6 @@ package com.example.pokmonpictorialbook.data.database
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.pokmonpictorialbook.data.database.dao.PokemonDao
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonDetailEntity
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonEntity
@@ -15,14 +14,16 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 import java.io.IOException
 
 /**
  * PokemonDatabase の Test
- * TODO: できれば Robolectric 導入して、Android Test をやめたい
+ * Robolectric に対応（カバレッジテストだとエラーが出る。）
+ * TODO: これ参考に直したい。 https://github.com/robolectric/robolectric/issues/3023
  */
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
 class PokemonDatabaseTest {
 
     private lateinit var database: PokemonDatabase
