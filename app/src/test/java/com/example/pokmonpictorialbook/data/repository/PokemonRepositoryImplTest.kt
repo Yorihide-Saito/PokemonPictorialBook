@@ -48,6 +48,14 @@ class PokemonRepositoryImplTest {
     }
 
     @Test(expected = IOException::class)
+    fun fetchTotalNumberOfPokemonFromApi_ResponseNull_ThrowIOException() {
+        runTest {
+            fakePokemonApiService.setReturnNull(true)
+            repository.fetchTotalNumberOfPokemonFromApi()
+        }
+    }
+
+    @Test(expected = IOException::class)
     fun fetchTotalNumberOfPokemonFromApi_ResponseError_ThrowIOException() {
         runTest {
             fakePokemonApiService.setReturnError(true)
@@ -69,6 +77,14 @@ class PokemonRepositoryImplTest {
             assertEquals(fakePokemonApiService.fakePokemonResponse[pokemonName]?.types?.get(0)?.type?.name, response.types[0])
             assertEquals(fakePokemonApiService.fakePokemonResponse[pokemonName]?.sprites?.frontDefault, response.frontDefault)
             assertEquals(fakePokemonApiService.fakePokemonResponse[pokemonName]?.sprites?.backDefault, response.backDefault)
+        }
+    }
+
+    @Test(expected = IOException::class)
+    fun fetchPokemonFromApi_ResponseNull_ThrowIoException() {
+        runTest {
+            fakePokemonApiService.setReturnNull(true)
+            repository.fetchPokemonFromApi("hoge")
         }
     }
 
@@ -117,10 +133,20 @@ class PokemonRepositoryImplTest {
     }
 
     @Test(expected = IOException::class)
+    fun fetchPokemonSpeciesFromApi_ResponseNull_ThrowIOException() {
+        runTest{
+            fakePokemonApiService.setReturnNull(true)
+            repository.fetchPokemonSpeciesFromApi("hoge")
+        }
+    }
+
+    @Test(expected = IOException::class)
     fun fetchPokemonSpeciesFromApi_ResponseError_ThrowIOException() {
         runTest{
             fakePokemonApiService.setReturnError(true)
             repository.fetchPokemonSpeciesFromApi("hoge")
         }
     }
+
+
 }

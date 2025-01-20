@@ -17,6 +17,7 @@ import retrofit2.Response
 
 class FakePokemonApiService : PokemonApiService {
     private var shouldReturnError: Boolean = false
+    private var shouldReturnNull: Boolean = false
 
     // PokemonResponse 用の Fake クラス
     val fakePokemonResponse = mapOf(
@@ -196,9 +197,15 @@ class FakePokemonApiService : PokemonApiService {
         shouldReturnError = value
     }
 
+    fun setReturnNull(value: Boolean) {
+        shouldReturnNull = value
+    }
+
     override suspend fun fetchPokemonList(limit: Int, offset: Int): Response<PokemonListResponse> {
         return if (shouldReturnError) {
             Response.error(500, "Error fetching data".toResponseBody(null))
+        } else if (shouldReturnNull) {
+            Response.success(null)
         } else {
             Response.success(
                 PokemonListResponse(
@@ -222,6 +229,8 @@ class FakePokemonApiService : PokemonApiService {
     override suspend fun fetchPokemon(pokemonName: String): Response<PokemonResponse> {
         return if (shouldReturnError) {
             Response.error(500, "Error fetching data".toResponseBody(null))
+        } else if (shouldReturnNull) {
+            Response.success(null)
         } else {
             Response.success(
                 fakePokemonResponse[pokemonName]
@@ -238,6 +247,8 @@ class FakePokemonApiService : PokemonApiService {
     override suspend fun fetchPokemonSpecies(pokemonName: String): Response<PokemonSpeciesResponse> {
         return if (shouldReturnError) {
             Response.error(500, "Error fetching data".toResponseBody(null))
+        } else if (shouldReturnNull) {
+            Response.success(null)
         } else {
             Response.success(
                 fakePokemonSpeciesResponse[pokemonName]
