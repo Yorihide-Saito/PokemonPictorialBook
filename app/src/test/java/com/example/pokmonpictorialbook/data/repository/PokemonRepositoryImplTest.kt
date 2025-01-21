@@ -1,8 +1,12 @@
 package com.example.pokmonpictorialbook.data.repository
 
 import com.example.pokmonpictorialbook.data.common.PokemonMapper
+import com.example.pokmonpictorialbook.data.database.entitiy.PokemonDetailEntities
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonDetailEntity
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonEntity
+import com.example.pokmonpictorialbook.data.database.entitiy.PokemonFlavorTextEntity
+import com.example.pokmonpictorialbook.data.database.entitiy.PokemonGeneraEntity
+import com.example.pokmonpictorialbook.data.database.entitiy.PokemonNameEntity
 import com.example.pokmonpictorialbook.data.database.entitiy.PokemonSpeciesEntity
 import com.example.pokmonpictorialbook.fake.api.FakePokemonApiService
 import com.example.pokmonpictorialbook.fake.database.FakePokemonDao
@@ -25,7 +29,7 @@ class PokemonRepositoryImplTest {
     @Before
     fun setUp() {
         fakePokemonApiService = FakePokemonApiService()
-        fakePokemonDao = mock() // TODO: Fakeに変更したいかも、、、
+        fakePokemonDao = FakePokemonDao()
         repository = PokemonRepositoryImpl(
             apiService = fakePokemonApiService,
             pokemonDao = fakePokemonDao,
@@ -38,9 +42,12 @@ class PokemonRepositoryImplTest {
     @Test
     fun fetchTotalNumberOfPokemonFromApi_ResponseIsSuccessful_ReturnListOfPokemonEntity() {
         runTest {
+            // Arrange
             val count = 1000
+            // Act
             val pokemonEntityList: List<PokemonEntity> = repository.fetchTotalNumberOfPokemonFromApi(count)
 
+            // Assert
             assertEquals(count, pokemonEntityList.count())
             assertEquals(0, pokemonEntityList[0].id)
             assertEquals("pokemon0", pokemonEntityList[0].name)
@@ -50,7 +57,9 @@ class PokemonRepositoryImplTest {
     @Test(expected = IOException::class)
     fun fetchTotalNumberOfPokemonFromApi_ResponseNull_ThrowIOException() {
         runTest {
+            // Arrange
             fakePokemonApiService.setReturnNull(true)
+            // Act & Assert
             repository.fetchTotalNumberOfPokemonFromApi()
         }
     }
@@ -58,7 +67,9 @@ class PokemonRepositoryImplTest {
     @Test(expected = IOException::class)
     fun fetchTotalNumberOfPokemonFromApi_ResponseError_ThrowIOException() {
         runTest {
+            // Arrange
             fakePokemonApiService.setReturnError(true)
+            // Act & Assert
             repository.fetchTotalNumberOfPokemonFromApi()
         }
     }
@@ -66,10 +77,13 @@ class PokemonRepositoryImplTest {
     @Test
     fun fetchPokemonFromApi_ResponseIsSuccessful_ReturnPokemonDetailEntity() {
         runTest {
+            // Arrange
             val pokemonName = "hoge"
 
+            // Act
             val response: PokemonDetailEntity = repository.fetchPokemonFromApi(pokemonName)
 
+            // Assert
             // Fake データを検証データとして使用してるので、直したほうがいいかも
             assertEquals(fakePokemonApiService.fakePokemonResponse[pokemonName]?.id ,response.pokemonId)
             assertEquals(fakePokemonApiService.fakePokemonResponse[pokemonName]?.height, response.height)
@@ -83,7 +97,9 @@ class PokemonRepositoryImplTest {
     @Test(expected = IOException::class)
     fun fetchPokemonFromApi_ResponseNull_ThrowIoException() {
         runTest {
+            // Arrange
             fakePokemonApiService.setReturnNull(true)
+            // Act & Assert
             repository.fetchPokemonFromApi("hoge")
         }
     }
@@ -91,7 +107,9 @@ class PokemonRepositoryImplTest {
     @Test(expected = IOException::class)
     fun fetchPokemonFromApi_ResponseError_ThrowIOException() {
         runTest{
+            // Arrange
             fakePokemonApiService.setReturnError(true)
+            // Act & Assert
             repository.fetchPokemonFromApi("hoge")
         }
     }
@@ -101,10 +119,13 @@ class PokemonRepositoryImplTest {
     @Test
     fun fetchPokemonSpeciesFromAPi_ResponseIsSuccessful_ReturnPokemonSpeciesEntity() {
         runTest {
+            // Arrange
             val pokemonName = "hoge"
 
+            // Act
             val response: PokemonSpeciesEntity = repository.fetchPokemonSpeciesFromApi("hoge")
 
+            // Assert
             assertEquals(
                 fakePokemonApiService.fakePokemonSpeciesResponse[pokemonName]?.names?.get(0)?.name,
                 response.pokemonNameEntity[0].name
@@ -135,7 +156,9 @@ class PokemonRepositoryImplTest {
     @Test(expected = IOException::class)
     fun fetchPokemonSpeciesFromApi_ResponseNull_ThrowIOException() {
         runTest{
+            // Arrange
             fakePokemonApiService.setReturnNull(true)
+            // Act & Assert
             repository.fetchPokemonSpeciesFromApi("hoge")
         }
     }
@@ -143,10 +166,88 @@ class PokemonRepositoryImplTest {
     @Test(expected = IOException::class)
     fun fetchPokemonSpeciesFromApi_ResponseError_ThrowIOException() {
         runTest{
+            // Arrange
             fakePokemonApiService.setReturnError(true)
+            // Act & Assert
             repository.fetchPokemonSpeciesFromApi("hoge")
         }
     }
 
+    @Test
+    fun insertAllPokemonAndFetchAllPokemonFromDatabase_ValidEntity_FetchValidEntity() {
+        runTest {
+            // Arrange
+            val fakeEntityList: List<PokemonEntity> = listOf(
+                PokemonEntity(
+                    id = 1,
+                    name = "hoge"
+                ),
+                PokemonEntity(
+                    id = 2,
+                    name = "fuga"
+                )
+            )
+            // Act & Assert
+            repository.insertAllPokemon(fakeEntityList)
+            assertEquals(fakeEntityList, repository.fetchAllPokemonFromDatabase())
+        }
+    }
 
+    @Test
+    fun insertPokemonDetailEntitiesAndFetchThere_ValidEntity_FetchValidEntity() {
+        runTest {
+            // Arrange
+            val fakePokemonDetailEntities: PokemonDetailEntities = PokemonDetailEntities(
+                pokemonDetailEntity = PokemonDetailEntity(
+                    pokemonId = 1,
+                    height = 100,
+                    weight = 100,
+                    types = listOf("hoge", "fuga"),
+                    backDefault = "hogeBack",
+                    frontDefault = "hogeFront"
+                ),
+                pokemonSpeciesEntity = PokemonSpeciesEntity(
+                    pokemonNameEntity = listOf(
+                        PokemonNameEntity(
+                        id = 1,
+                        pokemonId = 1,
+                        languageCode = "ja",
+                        name = "hoge"
+                        )
+                    ),
+                    pokemonFlavorTextEntity = listOf(
+                        PokemonFlavorTextEntity(
+                            id = 1,
+                            pokemonId = 1,
+                            languageCode = "ja",
+                            flavorText = "hogehogehoge"
+                        )
+                    ),
+                    pokemonGeneraEntity = listOf(
+                        PokemonGeneraEntity(
+                            id = 1,
+                            pokemonId = 1,
+                            languageCode = "ja",
+                            genera = "hogehoge"
+                        )
+                    )
+                )
+            )
+
+            // Act
+            repository.insertPokemonDetailEntities(fakePokemonDetailEntities)
+            val validationPokemonDetailEntityList = repository.fetchAllPokemonDetailFromDatabase()
+            val validationPokemonDetailEntity = repository.fetchPokemonDetailFromDatabase(1)
+            val validationPokemonNameEntity = repository.fetchPokemonNameWithTranslationFromDatabase(1, "ja")
+            val validationPokemonFlavorTextEntityEntity = repository.fetchPokemonFlavorTextWithTranslationFromDatabase(1, "ja")
+            val validationPokemonGeneraEntity = repository.fetchPokemonGeneraWithTranslationFromDatabase(1, "ja")
+
+            // Assert
+            assertEquals(listOf(fakePokemonDetailEntities.pokemonDetailEntity), validationPokemonDetailEntityList)
+            assertEquals(fakePokemonDetailEntities.pokemonDetailEntity, validationPokemonDetailEntity)
+            assertEquals(fakePokemonDetailEntities.pokemonSpeciesEntity.pokemonNameEntity, validationPokemonNameEntity)
+            assertEquals(fakePokemonDetailEntities.pokemonSpeciesEntity.pokemonFlavorTextEntity, validationPokemonFlavorTextEntityEntity)
+            assertEquals(fakePokemonDetailEntities.pokemonSpeciesEntity.pokemonGeneraEntity, validationPokemonGeneraEntity)
+        }
+    }
 }

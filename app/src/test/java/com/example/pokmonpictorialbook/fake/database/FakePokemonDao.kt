@@ -9,60 +9,76 @@ import com.example.pokmonpictorialbook.data.database.entitiy.PokemonNameEntity
 
 class FakePokemonDao : PokemonDao {
 
+    private val pokemonEntityList: MutableList<PokemonEntity> = mutableListOf()
+    private val pokemonDetailEntityList: MutableList<PokemonDetailEntity> = mutableListOf()
+    private val pokemonNameEntityList: MutableList<PokemonNameEntity> = mutableListOf()
+    private val pokemonFlavorTextEntityList: MutableList<PokemonFlavorTextEntity> = mutableListOf()
+    private val pokemonGeneraEntityList: MutableList<PokemonGeneraEntity> = mutableListOf()
+
     override suspend fun insertPokemonList(pokemonEntityList: List<PokemonEntity>) {
-        TODO("Not yet implemented")
+        this.pokemonEntityList.addAll(pokemonEntityList)
     }
 
     override suspend fun insertPokemonDetail(pokemonDetailEntity: PokemonDetailEntity) {
-        TODO("Not yet implemented")
+        this.pokemonDetailEntityList.add(pokemonDetailEntity)
     }
 
     override suspend fun insertPokemonName(pokemonNameEntity: PokemonNameEntity) {
-        TODO("Not yet implemented")
+        this.pokemonNameEntityList.add(pokemonNameEntity)
     }
 
     override suspend fun insertPokemonFlavorText(pokemonFlavorText: PokemonFlavorTextEntity) {
-        TODO("Not yet implemented")
+        this.pokemonFlavorTextEntityList.add(pokemonFlavorText)
     }
 
     override suspend fun insertPokemonGenera(pokemonGeneraEntity: PokemonGeneraEntity) {
-        TODO("Not yet implemented")
+        this.pokemonGeneraEntityList.add(pokemonGeneraEntity)
     }
 
     override suspend fun fetchPokemonById(id: Int): PokemonEntity? {
-        TODO("Not yet implemented")
+        return this.pokemonEntityList.find {
+            it.id == id
+        }
     }
 
     override suspend fun fetchAllPokemon(): List<PokemonEntity> {
-        TODO("Not yet implemented")
+        return this.pokemonEntityList
     }
 
     override suspend fun fetchAllPokemonDetail(): List<PokemonDetailEntity> {
-        TODO("Not yet implemented")
+        return this.pokemonDetailEntityList
     }
 
     override suspend fun fetchPokemonDetailById(pokemonId: Int): PokemonDetailEntity? {
-        TODO("Not yet implemented")
+        return this.pokemonDetailEntityList.find {
+            it.pokemonId == pokemonId
+        }
     }
 
     override suspend fun fetchPokemonNameWithTranslation(
         speciesId: Int,
         languageCode: String
     ): PokemonNameEntity? {
-        TODO("Not yet implemented")
+        return this.pokemonNameEntityList.find {
+            it.id == speciesId && it.languageCode == languageCode
+        }
     }
 
     override suspend fun fetchPokemonGeneraWithTranslation(
         speciesId: Int,
         languageCode: String
     ): PokemonGeneraEntity? {
-        TODO("Not yet implemented")
+        return this.pokemonGeneraEntityList.find {
+            it.id == speciesId && it.languageCode == languageCode
+        }
     }
 
     override suspend fun fetchPokemonFlavorTextWithTranslation(
         speciesId: Int,
         languageCode: String
     ): PokemonFlavorTextEntity? {
-        TODO("Not yet implemented")
+        return this.pokemonFlavorTextEntityList.find {
+            it.id == speciesId && it.languageCode == languageCode
+        }
     }
 }
