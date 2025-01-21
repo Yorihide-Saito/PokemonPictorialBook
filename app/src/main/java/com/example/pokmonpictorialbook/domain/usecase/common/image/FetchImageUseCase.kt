@@ -21,7 +21,7 @@ class FetchImageUseCase(
         }
     }
 
-    suspend fun fetchImages(
+    private suspend fun fetchImages(
         pokemonId: Int
     ): Pair<Bitmap?, Bitmap?> {
         return Pair(

@@ -250,4 +250,6 @@ class PokemonRepositoryImplTest {
             assertEquals(fakePokemonDetailEntities.pokemonSpeciesEntity.pokemonGeneraEntity, validationPokemonGeneraEntity)
         }
     }
+
+    // TODO: LocalImageDataSource と RemoteImageDataSource の Test 作成する。
 }
